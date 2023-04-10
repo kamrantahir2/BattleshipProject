@@ -1,10 +1,11 @@
+import java.util.Scanner;
 
 public class Utility {
 
     // All methods in this class are declared static. This class will handle small
     // utility methods
 
-    public static int[] coordinateToArray(String str) {
+    public static int[] coordinateToArray(String str, Player player, Scanner scanner) {
         // This method will return an int[] array representing coordinates
         // It takes a char[] array and turns the letter into an int and adds it to
         // the array along with the second part of the coordinate.
@@ -31,7 +32,10 @@ public class Utility {
         int startingCharUpper = 65;
         int startingCharLower = 97;
 
-        for (int i = 1; i < App.gameGrid.length; i++) {
+        if (player == null) {
+            player = new Player(scanner);
+        }
+        for (int i = 1; i < player.gameGrid.length; i++) {
             if (character == (char) startingCharUpper || character == (char)
                     startingCharLower) {
                 letterIndex = i;

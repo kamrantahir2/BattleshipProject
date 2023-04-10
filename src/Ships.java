@@ -34,12 +34,12 @@ public class Ships {
     }
 
 
-    public int checkLives() {
+    public int checkLives(Player player) {
         try {
             int temp = 0;
             for (int i = 0; i < this.coordinatesArray.length; i++) {
 
-                if (App.gameGrid[coordinatesArray[i][0]][coordinatesArray[i][1]].equalsIgnoreCase("O")){
+                if (player.gameGrid[coordinatesArray[i][0]][coordinatesArray[i][1]].equalsIgnoreCase("O")){
                     temp ++;
                 }
             }
