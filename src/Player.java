@@ -23,7 +23,6 @@ public class Player {
          int cruiserLength = 3;
          int destroyerLength = 2;
 
-
          // Aircraft Carrier:
          this.aircraftCarrier = promptUserToPlaceShips(aircraftCarrierLength, "Aircraft Carrier", scanner);
 
@@ -45,8 +44,6 @@ public class Player {
 
     public Ships promptUserToPlaceShips(int shipLength, String shipName, Scanner scanner){
         // We will call promptUserToPlaceShips() to create each type of ship needed
-        // promptUserToPlaceShips() takes shipLength, shipName & Scanner as parameters and
-        // returns a Ships Object
 
         System.out.println("Enter the coordinates of the " + shipName  + " (" + shipLength + " cells):");
         String firstCoordinate = scanner.next();
