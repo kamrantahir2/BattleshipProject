@@ -33,7 +33,6 @@ public class Ships {
         return hasCoordinate;
     }
 
-
     public int checkLives(Player player) {
         try {
             int temp = 0;

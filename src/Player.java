@@ -13,7 +13,6 @@ public class Player {
      public Player(Scanner scanner) {
          // CONSTRUCTOR CURRENTLY EMPTY WHILE METHOD ARE BEING ADDED
          printGameGrid();
-         createShips(scanner);
      }
 
      public void createShips(Scanner scanner){

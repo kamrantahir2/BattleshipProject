@@ -1,13 +1,8 @@
 import java.util.Scanner;
 
 // ISSUES :
-//-------
-
-// - Placing ships. After placing the first ship we are again asked
-//   to place the first ship. The program never moves on to the second ship.
-
-// - The gameGrid is printed twice after placing the first ship, the second time it is
-//   empty.
+//---------
+// - The gameGrid is printed when taking a shot instead of the fogGrid
 
 public class App {
     static Scanner scanner = new Scanner(System.in);
@@ -16,6 +11,8 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         player = new Player(scanner);
+
+        player.createShips(scanner);
 
         player.printGameGrid();
 
