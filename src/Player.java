@@ -12,7 +12,7 @@ public class Player {
 
      public Player(Scanner scanner) {
          // CONSTRUCTOR CURRENTLY EMPTY WHILE METHOD ARE BEING ADDED
-
+         printGameGrid();
          createShips(scanner);
      }
 
@@ -22,6 +22,7 @@ public class Player {
          int submarineLength = 3;
          int cruiserLength = 3;
          int destroyerLength = 2;
+
 
          // Aircraft Carrier:
          this.aircraftCarrier = promptUserToPlaceShips(aircraftCarrierLength, "Aircraft Carrier", scanner);
@@ -218,19 +219,6 @@ public class Player {
         return isFree;
     }
 
-    public void printGameGrid() {
-
-
-        for (int i = 0; i < gameGrid.length; i++) {
-            String row = "";
-            for (int j = 0; j < gameGrid.length; j++){
-                row += gameGrid[i][j];
-                row += " ";
-            }
-            System.out.println(row);
-        }
-    }
-
     public String[][] createGrid(){
          String[][] tempArr = new String[11][11];
         tempArr[0][0] = " ";
@@ -256,28 +244,11 @@ public class Player {
         return tempArr;
     }
 
-    public void printFogGrid() {
-        fogGrid[0][0] = " ";
-        // Numbers row:
-        for(int i = 1; i < fogGrid[0].length; i++) {
-            fogGrid[0][i] = String.valueOf(i);
-        }
+//    ===================================================================================
+//                     ***** PRINT METHODS *****
 
-        // startingChar is used as the ASCII code for A and we increment it in the loop
-        int startingChar = 65;
-        for (int i = 1; i < fogGrid.length; i++) {
-            for (int j = 0; j < fogGrid[i].length; j++) {
-                if (j == 0) {
-                    fogGrid[i][j] = String.valueOf((char) startingChar);
-                    startingChar ++;
-                    continue;
-                }
-                if (fogGrid[i][j] == null) {
-                    fogGrid[i][j] = "~";
-                }
-            }
-        }
-
+    public void printGameGrid() {
+        System.out.println("printGameGr1id() called");
         for (int i = 0; i < gameGrid.length; i++) {
             String row = "";
             for (int j = 0; j < gameGrid.length; j++){
@@ -288,12 +259,16 @@ public class Player {
         }
     }
 
-
-    public String[][] getGameGrid() {
-        return gameGrid;
+    public void printFogGrid() {
+        System.out.println("printFogGrid() called");
+        for (int i = 0; i < gameGrid.length; i++) {
+            String row = "";
+            for (int j = 0; j < gameGrid.length; j++){
+                row += gameGrid[i][j];
+                row += " ";
+            }
+            System.out.println(row);
+        }
     }
 
-    public String[][] getFogGrid() {
-        return fogGrid;
-    }
 }

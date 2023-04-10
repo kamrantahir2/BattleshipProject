@@ -6,18 +6,21 @@ import java.util.Scanner;
 // - Placing ships. After placing the first ship we are again asked
 //   to place the first ship. The program never moves on to the second ship.
 
-// - The gameGrid is not printed at the start but is printed after typing the coordinates
-//   for the first ship
+// - The gameGrid is printed twice after placing the first ship, the second time it is
+//   empty.
 
 public class App {
     static Scanner scanner = new Scanner(System.in);
-    static Player player = new Player(scanner);
+    static Player player;
 
     public static void main(String[] args) throws Exception {
+
+        player = new Player(scanner);
 
         player.printGameGrid();
 
         System.out.println("The game starts!");
+
         player.printGameGrid();
 
         boolean isGameOver = isGameOver();
@@ -46,10 +49,10 @@ public class App {
     public static boolean isGameOver(){
         boolean isGameOver = true;
 
-        for (int i = 0; i < player.getGameGrid().length; i++) {
+        for (int i = 0; i < player.gameGrid.length; i++) {
             boolean endLoop = false;
-            for (int j = 0; j < player.getGameGrid()[i].length; j++) {
-                if (player.getGameGrid()[i][j].equalsIgnoreCase("O")) {
+            for (int j = 0; j < player.gameGrid[i].length; j++) {
+                if (player.gameGrid[i][j].equalsIgnoreCase("O")) {
                     isGameOver = false;
                     endLoop = true;
                     break;
