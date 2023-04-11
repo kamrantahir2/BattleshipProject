@@ -2,35 +2,35 @@ import java.util.Scanner;
 
 // CURRENT STAGE:
 //--------------------
-// - The Player class is complete but the game is still single player. Add a new player
+// - The Player class is complete but the game is still single player1. Add a new player1
 //   and make them compete
 
 public class App {
     static Scanner scanner = new Scanner(System.in);
-    static Player player;
+    static Player player1;
+    static Player player2;
 
     public static void main(String[] args) throws Exception {
 
-        player = new Player(scanner);
-
-        player.createShips(scanner);
-
-        player.printGameGrid();
+        // PLAYER 1
+        player1 = new Player(scanner);
+        player1.createShips(scanner);
+        player1.printGameGrid();
 
         System.out.println("The game starts!");
 
-        player.printGameGrid();
+        player1.printGameGrid();
 
         boolean isGameOver = isGameOver();
 
         while (!isGameOver) {
             System.out.println("Take a shot!");
             String shotCoordinate = scanner.next();
-            boolean validShotCoordinate = takeShot(shotCoordinate);
+            boolean validShotCoordinate = player1.takeShot(shotCoordinate, scanner, player1);
             if (!validShotCoordinate) {
                 while (!validShotCoordinate) {
                     shotCoordinate = scanner.next();
-                    validShotCoordinate = takeShot(shotCoordinate);
+                    validShotCoordinate = player1.takeShot(shotCoordinate, scanner, player1);
                 }
             }
             isGameOver = isGameOver();
@@ -38,7 +38,8 @@ public class App {
 
         System.out.println("You sank the last ship. You won. Congratulations!");
 
-        player.printGameGrid();
+        player1.printGameGrid();
+
     }
 
     // MAIN METHOD ENDS HERE  !!!
@@ -47,10 +48,10 @@ public class App {
     public static boolean isGameOver(){
         boolean isGameOver = true;
 
-        for (int i = 0; i < player.gameGrid.length; i++) {
+        for (int i = 0; i < player1.gameGrid.length; i++) {
             boolean endLoop = false;
-            for (int j = 0; j < player.gameGrid[i].length; j++) {
-                if (player.gameGrid[i][j].equalsIgnoreCase("O")) {
+            for (int j = 0; j < player1.gameGrid[i].length; j++) {
+                if (player1.gameGrid[i][j].equalsIgnoreCase("O")) {
                     isGameOver = false;
                     endLoop = true;
                     break;
@@ -64,7 +65,7 @@ public class App {
     }
 
     public static int[][] createCoordinatesArray(String firstCoordinate, String secondCoordinate, int shipLength) {
-        int[] strToCoordinate = Utility.coordinateToArray(firstCoordinate, player, scanner);
+        int[] strToCoordinate = Utility.coordinateToArray(firstCoordinate, player1, scanner);
         int[][] coordinateArr = new int[shipLength][2];
 
         if (firstCoordinate.charAt(0) == secondCoordinate.charAt(0)) {
@@ -81,46 +82,5 @@ public class App {
         return coordinateArr;
     }
 
-    // Method taking a coordinate and firing a shot
-    public static boolean takeShot(String str) {
-        int[] coordinate = Utility.coordinateToArray(str, player, scanner);
-        boolean validCoordinates = true;
-
-        if (coordinate[0] < 1 || coordinate[0] > 10){
-            System.out.println("Error! You entered the wrong coordinates! Try again:");
-            validCoordinates = false;
-        }
-        else if (coordinate[1] < 1 || coordinate[1] > 10) {
-            System.out.println("Error! You entered the wrong coordinates! Try again:");
-            validCoordinates = false;
-        }
-        else {
-            if (player.gameGrid[coordinate[0]][coordinate[1]].equalsIgnoreCase("O")) {
-                player.gameGrid[coordinate[0]][coordinate[1]] = "X";
-                player.fogGrid[coordinate[0]][coordinate[1]] = "X";
-                player.printFogGrid();
-
-                for (int i = 0; i < player.shipsArray.length; i++) {
-                    if (player.shipsArray[i].wasHit(coordinate)) {
-                        if (player.shipsArray[i].checkLives(player) == 0) {
-                            System.out.println("You sank a ship! Specify a new target:");
-                        } else {
-                            System.out.println("You hit a ship! Try again:");
-                        }
-                    }
-                }
-
-            }
-            else if (player.gameGrid[coordinate[0]][coordinate[1]].equalsIgnoreCase("~"))
-            {
-                player.gameGrid[coordinate[0]][coordinate[1]] = "M";
-                player.fogGrid[coordinate[0]][coordinate[1]] = "M";
-                player.printFogGrid();
-                System.out.println("You missed. Try again:");
-
-            }
-        }
-        return validCoordinates;
-    }
 
 }

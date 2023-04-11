@@ -15,6 +15,48 @@ public class Player {
          printGameGrid();
      }
 
+    // Method taking a coordinate and firing a shot
+    public boolean takeShot(String str, Scanner scanner, Player player1) {
+        int[] coordinate = Utility.coordinateToArray(str, player1, scanner);
+        boolean validCoordinates = true;
+
+        if (coordinate[0] < 1 || coordinate[0] > 10){
+            System.out.println("Error! You entered the wrong coordinates! Try again:");
+            validCoordinates = false;
+        }
+        else if (coordinate[1] < 1 || coordinate[1] > 10) {
+            System.out.println("Error! You entered the wrong coordinates! Try again:");
+            validCoordinates = false;
+        }
+        else {
+            if (player1.gameGrid[coordinate[0]][coordinate[1]].equalsIgnoreCase("O")) {
+                player1.gameGrid[coordinate[0]][coordinate[1]] = "X";
+                player1.fogGrid[coordinate[0]][coordinate[1]] = "X";
+                player1.printFogGrid();
+
+                for (int i = 0; i < player1.shipsArray.length; i++) {
+                    if (player1.shipsArray[i].wasHit(coordinate)) {
+                        if (player1.shipsArray[i].checkLives(player1) == 0) {
+                            System.out.println("You sank a ship! Specify a new target:");
+                        } else {
+                            System.out.println("You hit a ship! Try again:");
+                        }
+                    }
+                }
+
+            }
+            else if (player1.gameGrid[coordinate[0]][coordinate[1]].equalsIgnoreCase("~"))
+            {
+                player1.gameGrid[coordinate[0]][coordinate[1]] = "M";
+                player1.fogGrid[coordinate[0]][coordinate[1]] = "M";
+                player1.printFogGrid();
+                System.out.println("You missed. Try again:");
+
+            }
+        }
+        return validCoordinates;
+    }
+
      public void createShips(Scanner scanner){
          int aircraftCarrierLength = 5;
          int battleshipLength = 4;
@@ -244,7 +286,6 @@ public class Player {
 //                     ***** PRINT METHODS *****
 
     public void printGameGrid() {
-        System.out.println("printGameGrid() called");
         for (int i = 0; i < gameGrid.length; i++) {
             String row = "";
             for (int j = 0; j < gameGrid.length; j++){
@@ -256,7 +297,6 @@ public class Player {
     }
 
     public void printFogGrid() {
-        System.out.println("printFogGrid() called");
         for (int i = 0; i < fogGrid.length; i++) {
             String row = "";
             for (int j = 0; j < fogGrid.length; j++){
