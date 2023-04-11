@@ -2,8 +2,8 @@ import java.util.Scanner;
 
 // CURRENT STAGE:
 //--------------------
-// - The Player class is complete but the game is still single player1. Add a new player1
-//   and make them compete
+// - Both players can now place ships on their own grids.
+// - Next step is to make them attack each other and check win condition accordingly.
 
 public class App {
     static Scanner scanner = new Scanner(System.in);
@@ -12,12 +12,21 @@ public class App {
 
     public static void main(String[] args) throws Exception {
 
-        // PLAYER 1
+        // PLAYER 1 SET UP:
+        System.out.println("PLAYER 1");
         player1 = new Player(scanner);
         player1.createShips(scanner);
         player1.printGameGrid();
 
+        // PLAYER 2 SET UP:
+        System.out.println("PLAYER 2");
+        player2 = new Player(scanner);
+        player2.createShips(scanner);
+        player2.printGameGrid();
+
+
         System.out.println("The game starts!");
+
 
         player1.printGameGrid();
 
@@ -42,7 +51,6 @@ public class App {
 
     }
 
-    // MAIN METHOD ENDS HERE  !!!
 //    ====================================================================================
 
     public static boolean isGameOver(){

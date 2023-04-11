@@ -101,15 +101,12 @@ public class Player {
     }
 
     public boolean placeShip(String firstCoordinate, String secondCoordinate, int shipLength, String shipName, Scanner scanner) {
-
         boolean validPlacement = true;
-
-        int[] firstArray = Utility.coordinateToArray(firstCoordinate, this,scanner);
+        int[] firstArray = Utility.coordinateToArray(firstCoordinate, this, scanner);
         int[] secondArray = Utility.coordinateToArray(secondCoordinate, this, scanner);
 
         int[] smallestArr = new int[firstArray.length];
         int[] highestArr = new int[firstArray.length];
-
 
         if (firstArray[0] == secondArray[0]){
             // Check which number at index 0 is lower
@@ -159,12 +156,10 @@ public class Player {
                 }
             }
         }
-
         else {
             System.out.println("Error! Wrong ship location! Try again:");
             validPlacement = false;
         }
-
         return validPlacement;
     }
 
@@ -238,7 +233,6 @@ public class Player {
 
                     }
                 }
-
             }
             else {
                 try {
