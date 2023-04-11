@@ -15,10 +15,10 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         // PLAYER 1 SET UP:
-        System.out.println("PLAYER 1");
+        System.out.println("Player 1, place your ships to the game field");
         player1 = new Player(scanner);
         player1.createShips(scanner);
-        player1.printGameGrid();
+        scanner.nextLine();
 
         // PLAYER 2 SET UP:
         System.out.println("Press Enter and pass the move to another player");
@@ -26,11 +26,9 @@ public class App {
         System.out.println("Player 2, place your ships to the game field");
         player2 = new Player(scanner);
         player2.createShips(scanner);
-        player2.printGameGrid();
 
-//      MAKE THE PLAYERS ATTACK EACH OTHER INSTEAD OF THEIR OWN GRIDS
-
-        System.out.println("The game starts!");
+        System.out.println("Press Enter and pass the move to another player");
+        scanner.nextLine();
 
         boolean firstPlayerGameOver = player1.isGameOver();
         boolean secondPlayerGameOver = player2.isGameOver();
@@ -38,10 +36,12 @@ public class App {
         while (!firstPlayerGameOver && !secondPlayerGameOver) {
 
             if (player1Turn && !player2Turn) {
+                printGrids(player2, player1);
                 System.out.println("Player 1, it's your turn:");
                 attacked(player2);
                 changePlayer();
             } else {
+                printGrids(player1, player2);
                 System.out.println("Player 2, it's your turn:");
                 attacked(player1);
                 changePlayer();
@@ -73,6 +73,7 @@ public class App {
 
     public static void changePlayer() {
         System.out.println("Press Enter and pass the move to another player");
+
         scanner.nextLine();
         if (player1Turn && !player2Turn) {
             player1Turn = false;
@@ -81,6 +82,14 @@ public class App {
             player1Turn = true;
             player2Turn = false;
         }
+
     }
+
+    public static void printGrids(Player firstPlayer, Player secondPlayer) {
+        secondPlayer.printFogGrid();
+        System.out.println("---------------------");
+        firstPlayer.printGameGrid();
+    }
+
 
 }
