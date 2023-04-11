@@ -36,7 +36,7 @@ public class Player {
 
                 for (int i = 0; i < player1.shipsArray.length; i++) {
                     if (player1.shipsArray[i].wasHit(coordinate)) {
-                        if (player1.shipsArray[i].checkLives(player1) == 0) {
+                        if (player1.shipsArray[i].checkLives(player1) == 0 && !isGameOver(this)) {
                             System.out.println("You sank a ship! Specify a new target:");
                         } else {
                             System.out.println("You hit a ship! Try again:");
@@ -196,7 +196,6 @@ public class Player {
                     secondIndex ++;
                 }
                 catch (ArrayIndexOutOfBoundsException e) {
-
                 }
             }
         }
@@ -274,6 +273,25 @@ public class Player {
             }
         }
         return tempArr;
+    }
+
+    public boolean isGameOver(Player player1){
+        boolean isGameOver = true;
+
+        for (int i = 0; i < player1.gameGrid.length; i++) {
+            boolean endLoop = false;
+            for (int j = 0; j < player1.gameGrid[i].length; j++) {
+                if (player1.gameGrid[i][j].equalsIgnoreCase("O")) {
+                    isGameOver = false;
+                    endLoop = true;
+                    break;
+                }
+            }
+            if (endLoop) {
+                break;
+            }
+        }
+        return isGameOver;
     }
 
 //    ===================================================================================

@@ -69,42 +69,4 @@ public class Ships {
         }
         return this.lives;
     }
-
-
-//    =====================================================================================
-            //          GETTERS & SETTERS
-
-//    public String getFirstCoordinate() {
-//        return firstCoordinate;
-//    }
-//
-//    public String getSecondCoordinate() {
-//        return secondCoordinate;
-//    }
-//
-//    public int getLives() {
-//        return lives;
-//    }
-//
-//    public int[][] getCoordinatesArray() {
-//        return coordinatesArray;
-//    }
-//
-//    public boolean isMessageShown() {
-//        return messageShown;
-//    }
-//
-//    public void setMessageShown(boolean messageShown) {
-//        this.messageShown = messageShown;
-//    }
-//
-//    public void printCoordinatesArray() {
-//        for (int i = 0; i < coordinatesArray.length; i++) {
-//            String row = "";
-//            for (int j = 0; j < coordinatesArray[i].length; j++) {
-//                row += coordinatesArray[i][j];
-//            }
-//            System.out.println("Row = " + row);
-//        }
-//    }
 }

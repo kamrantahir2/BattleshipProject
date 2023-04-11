@@ -24,13 +24,13 @@ public class App {
         player2.createShips(scanner);
         player2.printGameGrid();
 
+//        MAKE THE PLAYERS ATTACK EACH OTHER INSTEAD OF THEIR OWN GRIDS
 
         System.out.println("The game starts!");
 
-
         player1.printGameGrid();
 
-        boolean isGameOver = isGameOver();
+        boolean isGameOver = player1.isGameOver(player1);
 
         while (!isGameOver) {
             System.out.println("Take a shot!");
@@ -42,34 +42,13 @@ public class App {
                     validShotCoordinate = player1.takeShot(shotCoordinate, scanner, player1);
                 }
             }
-            isGameOver = isGameOver();
+            isGameOver = player1.isGameOver(player1);
         }
 
         System.out.println("You sank the last ship. You won. Congratulations!");
 
         player1.printGameGrid();
 
-    }
-
-//    ====================================================================================
-
-    public static boolean isGameOver(){
-        boolean isGameOver = true;
-
-        for (int i = 0; i < player1.gameGrid.length; i++) {
-            boolean endLoop = false;
-            for (int j = 0; j < player1.gameGrid[i].length; j++) {
-                if (player1.gameGrid[i][j].equalsIgnoreCase("O")) {
-                    isGameOver = false;
-                    endLoop = true;
-                    break;
-                }
-            }
-            if (endLoop) {
-                break;
-            }
-        }
-        return isGameOver;
     }
 
 }
