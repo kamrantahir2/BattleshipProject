@@ -9,6 +9,8 @@ public class App {
     static Scanner scanner = new Scanner(System.in);
     static Player player1;
     static Player player2;
+    static boolean player1Turn = true;
+    static boolean player2Turn = false;
 
     public static void main(String[] args) throws Exception {
 
@@ -19,36 +21,66 @@ public class App {
         player1.printGameGrid();
 
         // PLAYER 2 SET UP:
-        System.out.println("PLAYER 2");
+        System.out.println("Press Enter and pass the move to another player");
+        scanner.nextLine();
+        System.out.println("Player 2, place your ships to the game field");
         player2 = new Player(scanner);
         player2.createShips(scanner);
         player2.printGameGrid();
 
-//        MAKE THE PLAYERS ATTACK EACH OTHER INSTEAD OF THEIR OWN GRIDS
+//      MAKE THE PLAYERS ATTACK EACH OTHER INSTEAD OF THEIR OWN GRIDS
 
         System.out.println("The game starts!");
 
-        player1.printGameGrid();
+        boolean firstPlayerGameOver = player1.isGameOver();
+        boolean secondPlayerGameOver = player2.isGameOver();
 
-        boolean isGameOver = player1.isGameOver(player1);
+        while (!firstPlayerGameOver && !secondPlayerGameOver) {
 
-        while (!isGameOver) {
-            System.out.println("Take a shot!");
-            String shotCoordinate = scanner.next();
-            boolean validShotCoordinate = player1.takeShot(shotCoordinate, scanner, player1);
-            if (!validShotCoordinate) {
-                while (!validShotCoordinate) {
-                    shotCoordinate = scanner.next();
-                    validShotCoordinate = player1.takeShot(shotCoordinate, scanner, player1);
-                }
+            if (player1Turn && !player2Turn) {
+                System.out.println("Player 1, it's your turn:");
+                attacked(player2);
+                changePlayer();
+            } else {
+                System.out.println("Player 2, it's your turn:");
+                attacked(player1);
+                changePlayer();
             }
-            isGameOver = player1.isGameOver(player1);
+
+            firstPlayerGameOver = player1.isGameOver();
+            secondPlayerGameOver = player2.isGameOver();
         }
 
-        System.out.println("You sank the last ship. You won. Congratulations!");
+        if (firstPlayerGameOver) {
+            System.out.println("Player 2 Won");
+        } else if (secondPlayerGameOver) {
+            System.out.println("Player 1 Won");
+        }
 
         player1.printGameGrid();
+    }
 
+    public static void attacked(Player player) {
+        String shotCoordinate = scanner.next();
+        boolean validShotCoordinate = player.takeShot(shotCoordinate, scanner, player);
+        if (!validShotCoordinate) {
+            while (!validShotCoordinate) {
+                shotCoordinate = scanner.next();
+                validShotCoordinate = player.takeShot(shotCoordinate, scanner, player);
+            }
+        }
+    }
+
+    public static void changePlayer() {
+        System.out.println("Press Enter and pass the move to another player");
+        scanner.nextLine();
+        if (player1Turn && !player2Turn) {
+            player1Turn = false;
+            player2Turn = true;
+        } else {
+            player1Turn = true;
+            player2Turn = false;
+        }
     }
 
 }
