@@ -1,19 +1,19 @@
 import java.util.Scanner;
 
 public class Player {
-     String[][] gameGrid = createGrid();
-     String[][] fogGrid = createGrid();
-     private Ships aircraftCarrier;
-     private Ships battleship;
-     private Ships submarine;
-     private Ships cruiser;
-     private Ships destroyer;
-     Ships[] shipsArray;
+    String[][] gameGrid = createGrid();
+    String[][] fogGrid = createGrid();
+    private Ships aircraftCarrier;
+    private Ships battleship;
+    private Ships submarine;
+    private Ships cruiser;
+    private Ships destroyer;
+    Ships[] shipsArray;
 
-     public Player(Scanner scanner) {
-         // CONSTRUCTOR CURRENTLY EMPTY WHILE METHOD ARE BEING ADDED
-         printGameGrid();
-     }
+    public Player(Scanner scanner) {
+        // CONSTRUCTOR CURRENTLY EMPTY WHILE METHOD ARE BEING ADDED
+        printGameGrid();
+    }
 
     // Method taking a coordinate and firing a shot
     public boolean takeShot(String str, Scanner scanner, Player player1) {
@@ -36,10 +36,12 @@ public class Player {
 
                 for (int i = 0; i < player1.shipsArray.length; i++) {
                     if (player1.shipsArray[i].wasHit(coordinate)) {
-                        if (player1.shipsArray[i].checkLives(player1) == 0 && !isGameOver()) {
+                        if (player1.shipsArray[i].checkLives(player1) == 0) {
                             System.out.println("You sank a ship! Specify a new target:");
                         } else {
-                            System.out.println("You hit a ship! Try again:");
+                            if (!App.firstPlayerGameOver && !App.secondPlayerGameOver) {
+                                System.out.println("You hit a ship!");
+                            }
                         }
                     }
                 }
@@ -50,38 +52,38 @@ public class Player {
                 player1.gameGrid[coordinate[0]][coordinate[1]] = "M";
                 player1.fogGrid[coordinate[0]][coordinate[1]] = "M";
                 player1.printFogGrid();
-                System.out.println("You missed. Try again:");
+                System.out.println("You missed!");
 
             }
         }
         return validCoordinates;
     }
 
-     public void createShips(Scanner scanner){
-         int aircraftCarrierLength = 5;
-         int battleshipLength = 4;
-         int submarineLength = 3;
-         int cruiserLength = 3;
-         int destroyerLength = 2;
+    public void createShips(Scanner scanner){
+        int aircraftCarrierLength = 5;
+        int battleshipLength = 4;
+        int submarineLength = 3;
+        int cruiserLength = 3;
+        int destroyerLength = 2;
 
-         // Aircraft Carrier:
-         this.aircraftCarrier = promptUserToPlaceShips(aircraftCarrierLength, "Aircraft Carrier", scanner);
+        // Aircraft Carrier:
+        this.aircraftCarrier = promptUserToPlaceShips(aircraftCarrierLength, "Aircraft Carrier", scanner);
 
-         // Battleship:
-         this.battleship =  promptUserToPlaceShips(battleshipLength, "Battleship", scanner);
+        // Battleship:
+        this.battleship =  promptUserToPlaceShips(battleshipLength, "Battleship", scanner);
 
-         // Submarine:
-         this.submarine = promptUserToPlaceShips(submarineLength, "Submarine", scanner);
+        // Submarine:
+        this.submarine = promptUserToPlaceShips(submarineLength, "Submarine", scanner);
 
-         // Cruiser:
-         this.cruiser = promptUserToPlaceShips(cruiserLength, "Cruiser", scanner);
+        // Cruiser:
+        this.cruiser = promptUserToPlaceShips(cruiserLength, "Cruiser", scanner);
 
-         // Destroyer:
-         this.destroyer = promptUserToPlaceShips(destroyerLength, "Destroyer", scanner);
+        // Destroyer:
+        this.destroyer = promptUserToPlaceShips(destroyerLength, "Destroyer", scanner);
 
-         // shipsArray
-         this.shipsArray = new Ships[] {aircraftCarrier, battleship, submarine, cruiser, destroyer};
-     }
+        // shipsArray
+        this.shipsArray = new Ships[] {aircraftCarrier, battleship, submarine, cruiser, destroyer};
+    }
 
     public Ships promptUserToPlaceShips(int shipLength, String shipName, Scanner scanner){
         // We will call promptUserToPlaceShips() to create each type of ship needed
@@ -92,7 +94,6 @@ public class Player {
         boolean isPlaced = placeShip(firstCoordinate, secondCoordinate, shipLength, shipName, scanner);
 
         while (!isPlaced) {
-            System.out.println("Enter the coordinates of the " + shipName + " (" + shipLength + " cells):");
             firstCoordinate = scanner.next();
             secondCoordinate = scanner.next();
             isPlaced = placeShip(firstCoordinate, secondCoordinate, shipLength, shipName, scanner);
@@ -136,7 +137,6 @@ public class Player {
                 }
             }
         }
-
         // Vertically Placed:
         else if (firstCoordinate.charAt(1) == secondCoordinate.charAt(1)){
             if (Math.abs(smallestArr[0] - highestArr[0]) != shipLength -1){
@@ -251,7 +251,7 @@ public class Player {
     }
 
     public String[][] createGrid(){
-         String[][] tempArr = new String[11][11];
+        String[][] tempArr = new String[11][11];
         tempArr[0][0] = " ";
         // Numbers row:
         for(int i = 1; i < tempArr[0].length; i++) {

@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Utility {
 
+
     // All methods in this class are declared static. This class will handle small
     // utility methods
 
@@ -75,6 +76,5 @@ public class Utility {
         }
         return coordinateAsArray;
     }
-
 
 }

@@ -1,16 +1,14 @@
 import java.util.Scanner;
 
-// CURRENT STAGE:
-//--------------------
-// - Both players can now place ships on their own grids.
-// - Next step is to make them attack each other and check win condition accordingly.
-
 public class App {
     static Scanner scanner = new Scanner(System.in);
     static Player player1;
     static Player player2;
     static boolean player1Turn = true;
     static boolean player2Turn = false;
+    static boolean firstPlayerGameOver;
+    static boolean secondPlayerGameOver;
+
 
     public static void main(String[] args) throws Exception {
 
@@ -22,6 +20,7 @@ public class App {
 
         // PLAYER 2 SET UP:
         System.out.println("Press Enter and pass the move to another player");
+
         scanner.nextLine();
         System.out.println("Player 2, place your ships to the game field");
         player2 = new Player(scanner);
@@ -30,32 +29,32 @@ public class App {
         System.out.println("Press Enter and pass the move to another player");
         scanner.nextLine();
 
-        boolean firstPlayerGameOver = player1.isGameOver();
-        boolean secondPlayerGameOver = player2.isGameOver();
+        firstPlayerGameOver = player1.isGameOver();
+        secondPlayerGameOver = player2.isGameOver();
 
         while (!firstPlayerGameOver && !secondPlayerGameOver) {
 
             if (player1Turn && !player2Turn) {
-                printGrids(player2, player1);
+                scanner.nextLine();
+                printGrids(player1, player2);
                 System.out.println("Player 1, it's your turn:");
                 attacked(player2);
-                changePlayer();
             } else {
-                printGrids(player1, player2);
+                scanner.nextLine();
+                printGrids(player2, player1);
                 System.out.println("Player 2, it's your turn:");
                 attacked(player1);
-                changePlayer();
             }
 
             firstPlayerGameOver = player1.isGameOver();
             secondPlayerGameOver = player2.isGameOver();
+            if (firstPlayerGameOver || secondPlayerGameOver) {
+                break;
+            }
+            changePlayer();
         }
 
-        if (firstPlayerGameOver) {
-            System.out.println("Player 2 Won");
-        } else if (secondPlayerGameOver) {
-            System.out.println("Player 1 Won");
-        }
+        System.out.println("You sank the last ship. You won. Congratulations!");
 
         player1.printGameGrid();
     }
