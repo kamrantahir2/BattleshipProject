@@ -97,7 +97,7 @@ public class Player {
             secondCoordinate = scanner.next();
             isPlaced = placeShip(firstCoordinate, secondCoordinate, shipLength, shipName, scanner);
         }
-        return new Ships(firstCoordinate, secondCoordinate, shipLength);
+        return new Ships(firstCoordinate, secondCoordinate, shipLength, this, scanner);
     }
 
     public boolean placeShip(String firstCoordinate, String secondCoordinate, int shipLength, String shipName, Scanner scanner) {

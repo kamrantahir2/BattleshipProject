@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Ships {
     // Contains fields and methods that all ships will use regardless of properties
     private String firstCoordinate;
@@ -6,10 +8,28 @@ public class Ships {
     private int[][] coordinatesArray;
     private boolean messageShown = false;
 
-    public Ships(String firstCoordinate, String secondCoordinate, int length) {
+    public Ships(String firstCoordinate, String secondCoordinate, int length, Player player1, Scanner scanner) {
         this.firstCoordinate = firstCoordinate;
         this.secondCoordinate = secondCoordinate;
-        coordinatesArray =  App.createCoordinatesArray(firstCoordinate, secondCoordinate, length);
+        coordinatesArray =  createCoordinatesArray(firstCoordinate, secondCoordinate, length, player1, scanner);
+    }
+
+    public int[][] createCoordinatesArray(String firstCoordinate, String secondCoordinate, int shipLength, Player player1, Scanner scanner) {
+        int[] strToCoordinate = Utility.coordinateToArray(firstCoordinate, player1, scanner);
+        int[][] coordinateArr = new int[shipLength][2];
+
+        if (firstCoordinate.charAt(0) == secondCoordinate.charAt(0)) {
+            for(int i = 0; i < coordinateArr.length; i++) {
+                int[] coordinate = {strToCoordinate[0], strToCoordinate[1] + i};
+                coordinateArr[i] = coordinate;
+            }
+        } else if (firstCoordinate.charAt(1) == secondCoordinate.charAt(1)) {
+            for(int i = 0; i < coordinateArr.length; i++) {
+                int[] coordinate = {strToCoordinate[0] + i, strToCoordinate[1]};
+                coordinateArr[i] = coordinate;
+            }
+        }
+        return coordinateArr;
     }
 
     // New method created check if the coordinate inputted is part of this ship's array
@@ -54,37 +74,37 @@ public class Ships {
 //    =====================================================================================
             //          GETTERS & SETTERS
 
-    public String getFirstCoordinate() {
-        return firstCoordinate;
-    }
-
-    public String getSecondCoordinate() {
-        return secondCoordinate;
-    }
-
-    public int getLives() {
-        return lives;
-    }
-
-    public int[][] getCoordinatesArray() {
-        return coordinatesArray;
-    }
-
-    public boolean isMessageShown() {
-        return messageShown;
-    }
-
-    public void setMessageShown(boolean messageShown) {
-        this.messageShown = messageShown;
-    }
-
-    public void printCoordinatesArray() {
-        for (int i = 0; i < coordinatesArray.length; i++) {
-            String row = "";
-            for (int j = 0; j < coordinatesArray[i].length; j++) {
-                row += coordinatesArray[i][j];
-            }
-            System.out.println("Row = " + row);
-        }
-    }
+//    public String getFirstCoordinate() {
+//        return firstCoordinate;
+//    }
+//
+//    public String getSecondCoordinate() {
+//        return secondCoordinate;
+//    }
+//
+//    public int getLives() {
+//        return lives;
+//    }
+//
+//    public int[][] getCoordinatesArray() {
+//        return coordinatesArray;
+//    }
+//
+//    public boolean isMessageShown() {
+//        return messageShown;
+//    }
+//
+//    public void setMessageShown(boolean messageShown) {
+//        this.messageShown = messageShown;
+//    }
+//
+//    public void printCoordinatesArray() {
+//        for (int i = 0; i < coordinatesArray.length; i++) {
+//            String row = "";
+//            for (int j = 0; j < coordinatesArray[i].length; j++) {
+//                row += coordinatesArray[i][j];
+//            }
+//            System.out.println("Row = " + row);
+//        }
+//    }
 }

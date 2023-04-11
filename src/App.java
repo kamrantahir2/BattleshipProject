@@ -64,23 +64,4 @@ public class App {
         return isGameOver;
     }
 
-    public static int[][] createCoordinatesArray(String firstCoordinate, String secondCoordinate, int shipLength) {
-        int[] strToCoordinate = Utility.coordinateToArray(firstCoordinate, player1, scanner);
-        int[][] coordinateArr = new int[shipLength][2];
-
-        if (firstCoordinate.charAt(0) == secondCoordinate.charAt(0)) {
-            for(int i = 0; i < coordinateArr.length; i++) {
-                int[] coordinate = {strToCoordinate[0], strToCoordinate[1] + i};
-                coordinateArr[i] = coordinate;
-            }
-        } else if (firstCoordinate.charAt(1) == secondCoordinate.charAt(1)) {
-            for(int i = 0; i < coordinateArr.length; i++) {
-                int[] coordinate = {strToCoordinate[0] + i, strToCoordinate[1]};
-                coordinateArr[i] = coordinate;
-            }
-        }
-        return coordinateArr;
-    }
-
-
 }
