@@ -1,8 +1,9 @@
 import java.util.Scanner;
 
-// ISSUES :
-//---------
-// - The gameGrid is printed when taking a shot instead of the fogGrid
+// CURRENT STAGE:
+//--------------------
+// - The Player class is complete but the game is still single player. Add a new player
+//   and make them compete
 
 public class App {
     static Scanner scanner = new Scanner(System.in);
@@ -97,9 +98,8 @@ public class App {
             if (player.gameGrid[coordinate[0]][coordinate[1]].equalsIgnoreCase("O")) {
                 player.gameGrid[coordinate[0]][coordinate[1]] = "X";
                 player.fogGrid[coordinate[0]][coordinate[1]] = "X";
-                player.printGameGrid();
+                player.printFogGrid();
 
-                // YOU ARE HERE !!!!!!
                 for (int i = 0; i < player.shipsArray.length; i++) {
                     if (player.shipsArray[i].wasHit(coordinate)) {
                         if (player.shipsArray[i].checkLives(player) == 0) {

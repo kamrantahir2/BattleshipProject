@@ -244,7 +244,7 @@ public class Player {
 //                     ***** PRINT METHODS *****
 
     public void printGameGrid() {
-        System.out.println("printGameGr1id() called");
+        System.out.println("printGameGrid() called");
         for (int i = 0; i < gameGrid.length; i++) {
             String row = "";
             for (int j = 0; j < gameGrid.length; j++){
@@ -257,10 +257,10 @@ public class Player {
 
     public void printFogGrid() {
         System.out.println("printFogGrid() called");
-        for (int i = 0; i < gameGrid.length; i++) {
+        for (int i = 0; i < fogGrid.length; i++) {
             String row = "";
-            for (int j = 0; j < gameGrid.length; j++){
-                row += gameGrid[i][j];
+            for (int j = 0; j < fogGrid.length; j++){
+                row += fogGrid[i][j];
                 row += " ";
             }
             System.out.println(row);
